@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', async () =>{
         nicknameInput.addEventListener('input', debounce(async(e) => {
             const nickname = e.target.value;
 
-            // 중복 확인 API 호출 구현 필요
+            // 중복 확인 API 호출 : 로그인과 닉네임 체크에서 중복 사용 중
             try {
-                const response = await fetch('/users/nickname', {
+                const response = await fetch('http://localhost:8080/api/v1/users/nickname', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

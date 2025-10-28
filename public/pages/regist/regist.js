@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
             // 중복 확인 API 호출 구현 필요
             try {
-                const response = await fetch('/users/email', {
+                const response = await fetch('http://localhost:8080/api/v1/users/email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -64,8 +64,10 @@ document.addEventListener('DOMContentLoaded', async () =>{
                         email
                     })
                 });
+                const result = await response.json();
+                console.log(result);
                 const message = document.getElementById('email-message');
-                if(await response.json()){
+                if(result){
                     message.textContent = '사용 가능한 이메일입니다.';
                     message.style.color = 'green';
                 }
@@ -89,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
             // 중복 확인 API 호출 구현 필요
             try {
-                const response = await fetch('/users/nickname', {
+                const response = await fetch('http://localhost:8080/api/v1/users/nickname', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -99,7 +101,9 @@ document.addEventListener('DOMContentLoaded', async () =>{
                     })
                 });
                 const message = document.getElementById('nickname-message');
-                if(await response.json()){
+                const result = await response.json();
+                console.log(result);
+                if(result){
                     message.textContent = '사용 가능한 닉네임입니다.';
                     message.style.color = 'green';
                 }
@@ -126,7 +130,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
             const nickname = document.getElementById('nickname').value;
             const password = document.getElementById('password').value;
             try {
-                const response = await fetch('/auth/regist', {
+                const response = await fetch('http://localhost:8080/api/v1/users', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -150,9 +154,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
             }
         });
     }
-       
     
-
 
     // debounce function
     function debounce(func, delay) {
