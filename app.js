@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
     origin: '*',
-    credential: 'true' 
+    credentials: 'true' 
 }));
 app.use(cookieParser());
 
@@ -188,20 +188,6 @@ app.get('/api/posts', async (req, res) => {
   const { lastPostId, limit } = req.query;
   try {
     const response = await fetch(`http://localhost:8080/api/v1/posts?lastPostId=${lastPostId || ''}&limit=${limit || 5}`);
-    const data = await response.json();
-    res.json(data);
-  } catch (err) {
-    console.error('프록시 오류:', err);
-    res.status(500).json({ message: '게시물 가져오기 실패' });
-  }
-});
-
-
-//프록시 댓글 리스트
-app.get('/api/posts/:postId/comments', async (req, res) => {
-  const { postId } = req.params;
-  try {
-    const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}/comments`);
     const data = await response.json();
     res.json(data);
   } catch (err) {
