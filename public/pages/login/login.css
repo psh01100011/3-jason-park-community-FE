@@ -1,0 +1,73 @@
+/* 전체 페이지 설정 */
+body {
+  font-family: "Apple SD Gothic Neo", sans-serif;
+  background-color: #f9f9f9;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 로그인 폼 */
+.login-form {
+  background: #fff;
+  padding: 24px 32px;
+  border-radius: 8px;
+  margin-top: 80px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 300px;
+}
+
+/* 입력창 및 버튼 공통 스타일 */
+.login-entity {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* 버튼 스타일 */
+#loginButton {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+}
+
+#loginButton:hover {
+  background-color: #0056b3;
+}
+
+#registButton{
+  margin-top: 12px;
+  font-size: 14px;
+  color: #007bff;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* placeholder 스타일 */
+.login-entity::placeholder {
+  color: #aaa;
+}
+
+/* 반응형 예시 */
+@media (max-width: 600px) {
+  .login-form {
+    width: 90%;
+    padding: 20px;
+  }
+}

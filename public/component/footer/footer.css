@@ -1,0 +1,30 @@
+.app-footer {
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-top: 1px solid #ddd;
+  text-align: center;
+  font-size: 14px;
+}
+
+.footer-list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 0;
+  margin: 0 0 10px 0;
+}
+
+.footer-list li a {
+  text-decoration: none;
+  color: #555;
+}
+
+.footer-list li a:hover {
+  text-decoration: underline;
+}
+
+.footer-copy {
+  color: #999;
+  font-size: 12px;
+}

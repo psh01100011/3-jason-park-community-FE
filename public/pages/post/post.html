@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>게시물 상세보기 </title>
+        <link rel="stylesheet" href="/public/component/header/header.css" />
+        <link rel="stylesheet" href="/public/component/footer/footer.css" />
+         <link rel="stylesheet" href="/public/component/postDetail/postDetail.css" />
+         <link rel="stylesheet" href="/public/component/commentList/commentList.css" />
+        <link rel="stylesheet" href="/public/pages/post/post.css" />
+        
+    </head>
+
+    <body>
+        <div class = "header-container"></div>
+
+        <div class="modal">
+            <div class="modal_body">Modal</div>
+        </div>
+        <div class = "post-detail-page">
+            <div id = "post-detail-container"></div>
+
+            <div class = "comment-write">
+                <input type="text" id="comment-input" placeholder="댓글을 입력하세요"/>
+                <button id="comment-submit">댓글 작성</button>
+            </div>
+
+            <div id = "comments-section"></div>
+
+            
+        </div>
+
+        <div class = "footer-container"></div>
+
+        <script type="module" src="/public/pages/post/post.js"></script>
+    </body>
+</html>

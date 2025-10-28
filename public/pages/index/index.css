@@ -1,0 +1,90 @@
+/* 페이지 전체 스타일 */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f7f8fa;
+  color: #333;
+}
+
+
+
+/* 메인 영역 */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+/* 게시물 리스트 */
+#post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+
+
+.mainpage-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* 제목은 왼쪽 */
+  margin: 60px 0 0 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* 메인 인트로 문구 */
+.mainpage-intro h1 {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: #2c3e50;
+  line-height: 1.4;
+}
+
+#writeButton {
+  align-self: flex-end;   /* 버튼만 오른쪽으로 밀림 */
+  padding: 12px 28px;
+  background-color: #2c3e50;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  margin-top: 20px;
+}
+
+#writeButton:hover {
+  background-color: #1a252f;
+  transform: translateY(-2px);
+}
+
+#writeButton:active {
+  transform: translateY(0);
+}
+
+
+
+/* 반응형 */
+@media (max-width: 600px) {
+  main {
+    padding: 16px 12px;
+  }
+
+  .post-item h3 {
+    font-size: 18px;
+  }
+  .mainpage-intro h1 {
+    font-size: 22px;
+  }
+
+  #writeButton {
+    width: 80%;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+}

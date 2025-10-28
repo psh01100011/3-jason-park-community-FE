@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>회원가입</title>
+        <link rel="stylesheet" href="/public/pages/regist/regist.css" />
+        <link rel="stylesheet" href="/public/component/header/header.css" />
+        <link rel="stylesheet" href="/public/component/footer/footer.css" />
+    </head>
+
+    <body>
+        <div class = "header-container"></div>
+        
+        <div class = "regist-container">    
+
+        <form class="regist-form">
+            <h1>회원가입</h1>
+            <p>이메일</p>
+            <input class="regist-entity" id = "email" type="text" placeholder="이메일">
+            <p class = message id = email-message></p>
+            <p>비밀번호</p>
+            <input class="regist-entity" id = "password" type="password" placeholder="비밀번호">
+            <p>비밀번호 확인</p>
+            <input class="regist-entity" id = "passwordCheck" type="password" placeholder="비밀번호 확인">
+            <p class = message id = password-message></p>
+            <p>닉네임</p>
+            <input class="regist-entity" id = "nickname" type="text" placeholder="닉네임">
+            <p class = message id = nickname-message></p><br>
+            <button class="regist-entity" id = "registButton">회원가입</button> 
+
+
+
+        </form>
+
+        <p  id = "gotoLoginButton">로그인하러 가기</p> 
+
+        </div>
+        <div class = "footer-container"></div>
+        <script type="module" src="/public/pages/regist/regist.js"></script>
+    </body>
+
+
+</html>

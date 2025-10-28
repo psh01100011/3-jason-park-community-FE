@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/psh01100011/3-jason-park-community-FE#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "express": "^5.1.0"
   }
 }
