@@ -1,10 +1,14 @@
 import { loadHeader } from '../../component/header/header.js';
 import { loadFooter } from '../../component/footer/footer.js';
-
+import { checkSession } from '../../../util/session.js';
 document.addEventListener('DOMContentLoaded', async () =>{
     //헤더 로딩
     loadHeader();
     loadFooter();
+    
+    if(await checkSession()){
+        window.location.href = '/';
+    }
 
     // 회원가입 버튼 이벤트
     const signUpButton = document.getElementById('registButton');

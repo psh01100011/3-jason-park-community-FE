@@ -9,6 +9,10 @@ export async function checkSession() {
 
         console.log(response.status)
         if(response.status == 200){
+            const res = await response.json();
+            const userId = res.id;
+            
+            sessionStorage.setItem('userId', userId);
             return true;
         }
         else{
@@ -17,7 +21,7 @@ export async function checkSession() {
 
           
     } catch (err) {
-        console.error('프로필 표시 중 오류 발생:', err);
+        console.log("세션 체크 중 오류 발생");
         return false;
     }
 }
