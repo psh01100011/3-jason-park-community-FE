@@ -8,14 +8,11 @@ export async function fetchPosts(limit = 10) {
   isLoading = true;
 
   try {
-    const url = lastPostId
-      ? `/api/posts?lastPostId=${lastPostId}&limit=${limit}`
-      : `/api/posts?limit=${limit}`;
-
-    const response = await fetch(url);
+    const response = await fetch(`http://localhost:8080/api/v1/posts?lastPostId=${lastPostId || ''}&limit=${limit || 5}`);
     if (!response.ok) throw new Error('게시물 요청 실패');
 
     const posts = await response.json();
+    console.log(posts);
     if (posts.length === 0) {
       isEnd = true;
       return [];
@@ -33,11 +30,11 @@ export async function fetchPosts(limit = 10) {
 }
 
 export async function fetchPostDetail(postId) {
+  console.log('백엔드 연동 : 게시물 상세보기');
   try{
-    const response = await fetch(`/api/postDetail/${postId}`);
+    const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}`);
     if(!response.ok) throw new Error('게시물 상세 요청 실패');
     const postDetail = await response.json();
-    console.log(postDetail);
     return postDetail;
   }catch(err){
     console.error('게시물 상세 로딩 오류:', err);

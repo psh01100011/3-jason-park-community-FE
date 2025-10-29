@@ -32,7 +32,7 @@ if (submitButton) {
         }   
 
         try {
-            const response = await fetch('/posts', {
+            const response = await fetch('http://localhost:8080/api/v1/posts', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -47,9 +47,6 @@ if (submitButton) {
             if (response.status !== 201) {
                 throw new Error('글 작성 요청 실패');
             }
-
-            const postId = await response.json()
-            
             // 글 작성 성공 시 메인 페이지로 이동
             window.location.href = '/';
 

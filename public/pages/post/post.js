@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
             }   
 
             try {
-                const response = await fetch(`/api/posts/${postId}/comments`, {
+                const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}/comments`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

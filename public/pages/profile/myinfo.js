@@ -53,17 +53,18 @@ document.addEventListener('DOMContentLoaded', async () =>{
             
             const nickname = document.getElementById('nickname').value;
             try {
-                const response = await fetch('/me', {
+                const response = await fetch('http://localhost:8080/api/v1/users/me', {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
                         nickname
-                    })
+                    }),
+                    credentials: 'include'
                 });
                 
-                if (response.status !== 200) {
+                if (response.status !== 204) {
                     throw new Error('수정 요청 실패');
                 }
                 alert('내 정보가 변경되었습니다.');

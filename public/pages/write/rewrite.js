@@ -46,7 +46,7 @@ if (submitButton) {
         }   
 
         try {
-            const response = await fetch(`/posts/${postId}`, {
+            const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ if (submitButton) {
                 credentials: 'include'
             });
 
-            if (response.status !== 201) {
+            if (response.status !== 200) {
                 throw new Error('글 수정 요청 실패');
             }
 

@@ -26,21 +26,22 @@ document.addEventListener('DOMContentLoaded', async () =>{
             const password = document.getElementById('password').value;
             
             try {
-                const response = await fetch('/auth/login', {
+                const response = await fetch('http://localhost:8080/api/v1/auth', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
-                        email: email,
-                        password: password
+                        email,
+                        password
                     }),
                     credentials: 'include'
                 });  
 
-                if (response.status !== 200) {
+                if (response.status !== 201) {
                     throw new Error('로그인 요청 실패');
                 }
+                const userId = await response.text();
                 window.location.href = '/';
         
 

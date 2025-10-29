@@ -45,17 +45,18 @@ document.addEventListener('DOMContentLoaded', async () =>{
             
             const password = document.getElementById('password').value;
             try {
-                const response = await fetch('/auth/me', {
+                const response = await fetch('http://localhost:8080/api/v1/users/me/auth', {
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
                         password
-                    })
+                    }),
+                    credentials: 'include'
                 });
                 
-                if (response.status !== 200) {
+                if (response.status !== 204) {
                     throw new Error('수정 요청 실패');
                 }
                 alert('비밀번호가 변경되었습니다.');
