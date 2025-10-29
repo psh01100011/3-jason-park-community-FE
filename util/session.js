@@ -17,7 +17,7 @@ export async function checkSession() {
 
           
     } catch (err) {
-        //console.error('프로필 표시 중 오류 발생:', err);
+        console.error('프로필 표시 중 오류 발생:', err);
         return false;
     }
 }

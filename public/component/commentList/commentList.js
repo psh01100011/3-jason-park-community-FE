@@ -3,7 +3,7 @@ import { getCookie } from '../../../util/cookie.js';
 export function setCommentList(comments) {
   const commentListContainer = document.getElementById('comments-section');
 
-  const userId = Number(getCookie('userId'));
+  const userId = parseFloat(sessionStorage.getItem("userId"));
 
   comments.forEach(comment => {
     const item = document.createElement('div');

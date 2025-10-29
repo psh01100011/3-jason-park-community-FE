@@ -3,7 +3,7 @@ import { getCookie } from '../../../util/cookie.js';
 export function setPostDetail(postDetail) {
   const postDetailContainer = document.getElementById('post-detail-container');
 
-  const userId = getCookie('userId');
+  const userId = sessionStorage.getItem("userId");
   const authorId = postDetail.userId;
   const container = document.getElementById('post-detail-container');
   container.innerHTML = '';

@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                     throw new Error('로그인 요청 실패');
                 }
                 const userId = await response.text();
+                sessionStorage.setItem("userId", userId);
                 window.location.href = '/';
         
 

@@ -28,8 +28,10 @@ export async function loadHeader() {
   });
 
   // 프로필 버튼
+  const userId = sessionStorage.getItem('userId');
+
   const profileBtn = document.createElement('button');
-  if(!await checkSession()){
+  if(userId == null){
     profileBtn.textContent = '로그인';
     profileBtn.addEventListener('click', async (e) => {
         window.location.href = '/login';
@@ -85,6 +87,7 @@ export async function loadHeader() {
 
             if(response.status == 200){
               console.log('로그아웃 성공')
+              sessionStorage.removeItem("userId");
               window.location.href = '/login';
 
             }
