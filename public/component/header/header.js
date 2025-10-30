@@ -15,7 +15,18 @@ export async function loadHeader() {
   const backBtn = document.createElement('button');
   backBtn.textContent = '◀';
   backBtn.addEventListener('click', () => {
-    history.back(); // 이전 페이지로 이동 : 우리 사이트 내에서만 작동하도록 수정 필요
+    const prevUrl = document.referrer; // 바로 이전 페이지 URL
+
+    // 현재 사이트 도메인
+    const currentHost = window.location.origin;
+
+    // referrer(이전 페이지)가 우리 사이트 주소로 시작하는 경우만 history.back() 허용
+    if (prevUrl.startsWith(currentHost)) {
+      location.href =prevUrl;
+    } else {
+      // 외부 사이트에서 들어왔거나 referrer가 비어있으면 안전한 기본 페이지로 이동
+      location.href = '/';
+    }
   });
   backBtn.classList.add('back-btn');
 

@@ -57,9 +57,6 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 document.getElementById('email').value = '';
                 document.getElementById('password').value = '';
             }
-    
-            
-            
         });
     }
         

@@ -3,7 +3,10 @@
 export async function fetchComments(postId) {
 
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}/comments`);
+    const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}/comments/list`,{
+      method: 'GET',
+      credentials: 'include' 
+    });
     if (!response.ok) throw new Error('댓글 요청 실패');
 
     const comments = await response.json();

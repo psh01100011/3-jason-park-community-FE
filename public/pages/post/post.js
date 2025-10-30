@@ -24,6 +24,13 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
         postId = postId.replace('/post/','');
         const postDetail = await fetchPostDetail(postId);
+
+        if (!postDetail) {
+            alert('게시물을 불러올 수 없습니다.');
+            location.replace('/');
+            return;
+        }
+
         console.log('작성자 id', postDetail.userId);
        // 내용 채우기
        setPostDetail(postDetail);

@@ -48,7 +48,7 @@ if (submitButton) {
                 throw new Error('글 작성 요청 실패');
             }
             // 글 작성 성공 시 메인 페이지로 이동
-            window.location.href = '/';
+            location.replace('/');
 
         } catch (err) {
             console.error('글 작성 중 오류 발생:', err);
