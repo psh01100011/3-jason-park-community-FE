@@ -4,7 +4,7 @@ import { setWriteForm } from '../../component/writeForm/writeForm.js';
 import { setRewriteContent } from '../../component/writeForm/writeForm.js';
 import { checkSession } from '../../../util/session.js';
 import { loadFooter } from '../../component/footer/footer.js';
-
+import { fetchRequest } from '../../../api/auth/auth.js';
 
 document.addEventListener('DOMContentLoaded', async () =>{
     //세션 체크 위치 좀 고민해보기 -> 지금은 헤더에서도 체크 중인데, 여기서도 체크하면 중복 체크하는 중임
@@ -46,7 +46,8 @@ if (submitButton) {
         }   
 
         try {
-            const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}`, {
+            const url = `http://localhost:8080/api/v1/posts/${postId}`;
+            const option = {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,7 +57,8 @@ if (submitButton) {
                     content: content
                 }),
                 credentials: 'include'
-            });
+            };
+            const response = await fetchRequest(url, option);
 
             if (response.status !== 200) {
                 throw new Error('글 수정 요청 실패');

@@ -30,7 +30,8 @@ document.addEventListener('DOMContentLoaded', async () =>{
             const password = document.getElementById('password').value;
             
             try {
-                const response = await fetch('http://localhost:8080/api/v1/auth', {
+                const url = 'http://localhost:8080/api/v1/auth';
+                const option = {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -40,8 +41,9 @@ document.addEventListener('DOMContentLoaded', async () =>{
                         password
                     }),
                     credentials: 'include'
-                });  
-
+                }
+                const response = await fetch(url, option);
+                
                 if (response.status !== 201) {
                     throw new Error('로그인 요청 실패');
                 }

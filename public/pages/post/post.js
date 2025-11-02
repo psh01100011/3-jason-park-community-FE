@@ -4,8 +4,7 @@ import { setPostDetail } from '../../component/postDetail/postDetail.js';
 import { setCommentList } from '../../component/commentList/commentList.js';
 import { fetchComments } from '../../../api/comment/comment.js';  
 import { loadFooter } from '../../component/footer/footer.js';
-
-
+import { fetchRequest } from '../../../api/auth/auth.js';
 
 
 document.addEventListener('DOMContentLoaded', async () =>{
@@ -26,8 +25,8 @@ document.addEventListener('DOMContentLoaded', async () =>{
         const postDetail = await fetchPostDetail(postId);
 
         if (!postDetail) {
-            alert('게시물을 불러올 수 없습니다.');
-            location.replace('/');
+            //alert('게시물을 불러올 수 없습니다.');
+            //location.replace('/');
             return;
         }
 
@@ -52,7 +51,8 @@ document.addEventListener('DOMContentLoaded', async () =>{
             }   
 
             try {
-                const response = await fetch(`http://localhost:8080/api/v1/posts/${postId}/comments`, {
+                const url = `http://localhost:8080/api/v1/posts/${postId}/comments`;
+                const option = {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -61,7 +61,8 @@ document.addEventListener('DOMContentLoaded', async () =>{
                         content: comment
                     }),
                     credentials: 'include'
-                });
+                };
+                const response = await fetchRequest(url, option);
 
                 if (response.status !== 201) {
                     throw new Error('댓글 작성 요청 실패');

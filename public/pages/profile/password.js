@@ -1,6 +1,6 @@
 import { loadHeader } from '../../component/header/header.js';
 import { loadFooter } from '../../component/footer/footer.js';
-
+import { fetchRequest } from '../../../api/auth/auth.js';
 
 document.addEventListener('DOMContentLoaded', async () =>{
     //헤더 로딩
@@ -45,7 +45,8 @@ document.addEventListener('DOMContentLoaded', async () =>{
             
             const password = document.getElementById('password').value;
             try {
-                const response = await fetch('http://localhost:8080/api/v1/users/me/auth', {
+                const url = 'http://localhost:8080/api/v1/users/me/auth'; 
+                const option ={
                     method: 'PATCH',
                     headers: {
                         'Content-Type': 'application/json',
@@ -54,7 +55,8 @@ document.addEventListener('DOMContentLoaded', async () =>{
                         password
                     }),
                     credentials: 'include'
-                });
+                };
+                const response = await fetchRequest(url, option);
                 
                 if (response.status !== 204) {
                     throw new Error('수정 요청 실패');

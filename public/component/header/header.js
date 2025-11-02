@@ -1,9 +1,9 @@
 import { getCookie } from '../../../util/cookie.js';
 import { checkSession } from '../../../util/session.js';
+import { fetchRequest } from '../../../api/auth/auth.js';
 
 export async function loadHeader() {
   
-
   const headerContainer = document.querySelector('.header-container');
   if (!headerContainer) return;
 
@@ -91,10 +91,12 @@ export async function loadHeader() {
 
         document.getElementById('logoutBtn').addEventListener('click', async() => {
           try {
-            const response = await fetch('http://localhost:8080/api/v1/auth', {
-                method: 'DELETE',
-                credentials:'include'
-            });
+            const url = 'http://localhost:8080/api/v1/auth';
+            const option = {
+              method: 'DELETE',
+              credentials: 'include' 
+            };
+            const response = await fetchRequest(url, option);
 
             if(response.status == 200){
               console.log('로그아웃 성공')
