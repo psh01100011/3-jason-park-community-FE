@@ -5,6 +5,7 @@ import { setRewriteContent } from '../../component/writeForm/writeForm.js';
 import { checkSession } from '../../../util/session.js';
 import { loadFooter } from '../../component/footer/footer.js';
 import { fetchRequest } from '../../../api/auth/auth.js';
+import { address } from '../../../config/config.js';
 
 document.addEventListener('DOMContentLoaded', async () =>{
     //세션 체크 위치 좀 고민해보기 -> 지금은 헤더에서도 체크 중인데, 여기서도 체크하면 중복 체크하는 중임
@@ -46,7 +47,7 @@ if (submitButton) {
         }   
 
         try {
-            const url = `http://localhost:8080/api/v1/posts/${postId}`;
+            const url = `${address}/api/v1/posts/${postId}`;
             const option = {
                 method: 'PATCH',
                 headers: {

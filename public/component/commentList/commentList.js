@@ -1,4 +1,5 @@
 import { getCookie } from '../../../util/cookie.js';
+import { address } from '../../../config/config.js';
 
 export function setCommentList(comments) {
   const commentListContainer = document.getElementById('comments-section');

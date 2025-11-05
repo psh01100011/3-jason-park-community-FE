@@ -1,6 +1,5 @@
 import { getCookie } from '../../../util/cookie.js';
 
-
 export function setPostDetail(postDetail) {
   const postDetailContainer = document.getElementById('post-detail-container');
 

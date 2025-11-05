@@ -1,4 +1,5 @@
 const express = require('express');
+const {address} = require('./config/appConfig.js');
 const cors = require('cors');
 const app = express();
 const port = 3000;
@@ -49,10 +50,10 @@ app.get('/status/me', (req, res) => {
 
 //footer 
 app.get('/terms', (req, res) => {
-  res.redirect('http://localhost:8080/api/v1/policy/terms');
+  res.redirect(`${address}api/v1/policy/terms`);
 });
 app.get('/privacy', (req, res) => {
-  res.redirect('http://localhost:8080/api/v1/policy/privacy');
+  res.redirect(`${address}/api/v1/policy/privacy`);
 });
 
 

@@ -1,6 +1,7 @@
 import { getCookie } from '../../../util/cookie.js';
 import { checkSession } from '../../../util/session.js';
 import { fetchRequest } from '../../../api/auth/auth.js';
+import { address } from '../../../config/config.js';
 
 export async function loadHeader() {
   
@@ -91,7 +92,7 @@ export async function loadHeader() {
 
         document.getElementById('logoutBtn').addEventListener('click', async() => {
           try {
-            const url = 'http://localhost:8080/api/v1/auth';
+            const url = `${address}/api/v1/auth`;
             const option = {
               method: 'DELETE',
               credentials: 'include' 

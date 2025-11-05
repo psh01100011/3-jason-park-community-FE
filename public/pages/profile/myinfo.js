@@ -1,6 +1,7 @@
 import { loadHeader } from '../../component/header/header.js';
 import { loadFooter } from '../../component/footer/footer.js';
 import { fetchRequest } from '../../../api/auth/auth.js';
+import { address } from '../../../config/config.js';
 
 document.addEventListener('DOMContentLoaded', async () =>{
     //헤더 로딩
@@ -15,7 +16,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
             // 중복 확인 API 호출 : 로그인과 닉네임 체크에서 중복 사용 중
             try {
-                const response = await fetch('http://localhost:8080/api/v1/users/nickname', {
+                const response = await fetch(`${address}api/v1/users/nickname`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -53,7 +54,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
             
             const nickname = document.getElementById('nickname').value;
             try {
-                const url = 'http://localhost:8080/api/v1/users/me';
+                const url = `${address}/api/v1/users/me`;
                 const option = {
                     method: 'PATCH',
                     headers: {

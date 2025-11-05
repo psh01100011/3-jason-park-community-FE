@@ -1,9 +1,10 @@
 // '/api/posts/:postId/comments'
 import { fetchRequest } from '../../../api/auth/auth.js';
+import { address } from '../../../config/config.js';
 
 export async function fetchComments(postId) {
   try {
-    const url = `http://localhost:8080/api/v1/posts/${postId}/comments/list`
+    const url = `${address}/api/v1/posts/${postId}/comments/list`
     const option = {
         method: 'GET',
         credentials: 'include' 

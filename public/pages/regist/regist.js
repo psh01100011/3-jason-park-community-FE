@@ -1,6 +1,6 @@
 import { loadHeader } from '../../component/header/header.js';
 import { loadFooter } from '../../component/footer/footer.js';
-
+import { address } from '../../../config/config.js';
 
 document.addEventListener('DOMContentLoaded', async () =>{
     //헤더 로딩
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
             // 중복 확인 API 호출 구현 필요
             try {
-                const response = await fetch('http://localhost:8080/api/v1/users/email', {
+                const response = await fetch(`${address}/api/v1/users/email`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
             // 중복 확인 API 호출 구현 필요
             try {
-                const response = await fetch('http://localhost:8080/api/v1/users/nickname', {
+                const response = await fetch(`${address}/api/v1/users/nickname`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
             const nickname = document.getElementById('nickname').value;
             const password = document.getElementById('password').value;
             try {
-                const response = await fetch('http://localhost:8080/api/v1/users', {
+                const response = await fetch(`${address}/api/v1/users`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

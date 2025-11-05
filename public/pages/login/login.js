@@ -1,6 +1,8 @@
 import { loadHeader } from '../../component/header/header.js';
 import { loadFooter } from '../../component/footer/footer.js';
 import { checkSession } from '../../../util/session.js';
+import { address } from '../../../config/config.js';
+
 document.addEventListener('DOMContentLoaded', async () =>{
     //헤더 로딩
     loadHeader();
@@ -30,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
             const password = document.getElementById('password').value;
             
             try {
-                const url = 'http://localhost:8080/api/v1/auth';
+                const url = `${address}/api/v1/auth`;
                 const option = {
                     method: 'POST',
                     headers: {

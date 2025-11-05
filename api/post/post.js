@@ -1,4 +1,5 @@
 import { fetchRequest } from '../../../api/auth/auth.js';
+import { address } from '../../../config/config.js';
 
 // public/api/post.js
 let lastPostId = null;
@@ -10,7 +11,7 @@ export async function fetchPosts(limit = 10) {
   isLoading = true;
 
   try {
-    const url = `http://localhost:8080/api/v1/posts/list?lastPostId=${lastPostId || ''}&limit=${limit || 5}`;
+    const url = `${address}/api/v1/posts/list?lastPostId=${lastPostId || ''}&limit=${limit || 5}`;
     const option = {
         method: 'GET',
         credentials: 'include' 
@@ -39,7 +40,7 @@ export async function fetchPosts(limit = 10) {
 export async function fetchPostDetail(postId) {
   console.log('백엔드 연동 : 게시물 상세보기');
   try{
-    const url = `http://localhost:8080/api/v1/posts/${postId}`;
+    const url = `${address}/api/v1/posts/${postId}`;
     const option = {
       method: 'GET',
       credentials: 'include' 
