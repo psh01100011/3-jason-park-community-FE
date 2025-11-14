@@ -2,6 +2,7 @@
 import { fetchRequest } from '../../../api/auth/auth.js';
 import { address } from '../../../config/config.js';
 
+// 댓글 목록 가져오기
 export async function fetchComments(postId) {
   try {
     const url = `${address}/api/v1/posts/${postId}/comments/list`

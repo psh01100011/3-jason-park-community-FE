@@ -3,7 +3,6 @@ import { address } from '../../../config/config.js';
 
 export function setCommentList(comments) {
   const commentListContainer = document.getElementById('comments-section');
-
   const userId = parseFloat(sessionStorage.getItem("userId"));
 
   comments.forEach(comment => {

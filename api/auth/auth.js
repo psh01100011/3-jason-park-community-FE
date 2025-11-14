@@ -5,6 +5,7 @@ let isRefreshing = false;
 let refreshPromise = null;
 
 
+//엑세스 토큰이 필요한 요청
 export async function fetchRequest(url, options = {}) {
 
     console.log(url +" : 1차요청");

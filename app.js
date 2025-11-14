@@ -1,6 +1,7 @@
 const express = require('express');
 const {address} = require('./config/appConfig.js');
 const cors = require('cors');
+const path = require('path');
 const app = express();
 const port = 3000;
 const cookieParser = require('cookie-parser');
@@ -13,6 +14,7 @@ app.use(cors({
     credentials: 'true' 
 }));
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, '/assets')));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/public/pages/index/index.html');
@@ -59,6 +61,11 @@ app.get('/privacy', (req, res) => {
 
 // public 폴더
 // js 파일
+app.get(/.*\.js$/, (req, res) => {
+  res.type('application/javascript');
+  res.sendFile(__dirname + req.path);
+});
+
 app.get(/.*\.js$/, (req, res) => {
   res.type('application/javascript');
   res.sendFile(__dirname + req.path);

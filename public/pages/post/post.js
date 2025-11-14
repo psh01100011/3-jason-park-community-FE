@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
        //댓글 상세 내용 조회
        let comments = await fetchComments(postId);
        // 댓글 채우기
-        setCommentList(comments);
+       setCommentList(comments);
 
 
 
@@ -69,7 +69,12 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 }
 
                 // 댓글 작성 시 리스트 초기화
-                location.href = location.href;
+                const commentListContainer = document.getElementById('comments-section');
+                commentListContainer.innerHTML= '';
+                document.getElementById('comment-input').value = '';
+                comments = await fetchComments(postId);
+                // 댓글 채우기
+                setCommentList(comments);
 
             } catch (err) {
                 console.error('댓글 작성 중 오류 발생:', err);

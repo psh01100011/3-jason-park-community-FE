@@ -7,9 +7,9 @@ document.addEventListener('DOMContentLoaded', async () =>{
     //헤더 로딩
     loadHeader();
     loadFooter();
-    
-    if(await checkSession()){
-        window.location.href = '/';
+    const isLogin = await checkSession();
+    if(await isLogin){
+       window.location.href = '/';
     }
 
     // 회원가입 버튼 이벤트

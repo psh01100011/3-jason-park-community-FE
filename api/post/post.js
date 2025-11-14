@@ -6,6 +6,8 @@ let lastPostId = null;
 let isEnd = false;
 let isLoading = false;
 
+
+//게시물 목록 가져오기 
 export async function fetchPosts(limit = 10) {
   if (isLoading || isEnd) return [];
   isLoading = true;
@@ -37,6 +39,7 @@ export async function fetchPosts(limit = 10) {
   }
 }
 
+//게시물 상세보기 
 export async function fetchPostDetail(postId) {
   console.log('백엔드 연동 : 게시물 상세보기');
   try{

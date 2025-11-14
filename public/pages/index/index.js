@@ -23,7 +23,7 @@ async function handleScroll() {
 
 document.addEventListener('DOMContentLoaded', async () =>{
     //헤더 로딩
-    loadHeader();
+    await loadHeader();
     loadFooter();
     // 게시물 리스트 채우기
     try{

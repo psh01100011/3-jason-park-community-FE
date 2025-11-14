@@ -1,12 +1,14 @@
 import { loadHeader } from '../../component/header/header.js';
 import { loadFooter } from '../../component/footer/footer.js';
+import { setProfile } from '../../component/image/profile.js';
+import { uploadImage } from '../../../api/image/image.js';
 import { address } from '../../../config/config.js';
 
 document.addEventListener('DOMContentLoaded', async () =>{
     //헤더 로딩
     loadHeader();
     loadFooter();
-
+    setProfile();
 
     // 로그인하러 가기 이벤트
     const gotoLoginButton  = document.getElementById('gotoLoginButton');
@@ -125,7 +127,22 @@ document.addEventListener('DOMContentLoaded', async () =>{
     if (registButton) {
         registButton.addEventListener('click', async(e) => {
             e.preventDefault();
-            
+
+            const profile = document.getElementById('profile');
+            const file = document.getElementById('fileInput').files[0];
+            console.log(profile);
+            let profileImage = null;
+            if(!profile.src.includes('basic.jpg')){
+                try {
+                    profileImage = await uploadImage(file);
+                    console.log(await profileImage);
+                    
+                }
+                catch (err){
+                    console.error('사진 등록 중 오류 발생:', err);
+                    alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+                }
+            }
             const email = document.getElementById('email').value;
             const nickname = document.getElementById('nickname').value;
             const password = document.getElementById('password').value;
@@ -136,6 +153,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        profileImage,
                         nickname,
                         email,
                         password

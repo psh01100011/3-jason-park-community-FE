@@ -40,7 +40,12 @@ export async function loadHeader() {
   });
 
   // 프로필 버튼
-  const userId = sessionStorage.getItem('userId');
+  var userId = sessionStorage.getItem('userId');
+  if(userId == null){
+    if(await checkSession()){
+      window.location.href = '/';
+    }
+  }
 
   const profileBtn = document.createElement('button');
   if(userId == null){
