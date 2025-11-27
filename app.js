@@ -13,9 +13,17 @@ const configJS = `
 export const address = "${process.env.ADDRESS}";
 export const s3_address = "${process.env.S3_ADDRESS}";
 `;
+
+const configDir = path.join(__dirname, './config');
+
+if (!fs.existsSync(configDir)) {
+  fs.mkdirSync(configDir, { recursive: true });
+}
+
+
 console.log(configJS);
 fs.writeFileSync(
-  path.join(__dirname, './config/config.js'),
+  path.join(configDir, 'config.js'),
   configJS
 );
 
