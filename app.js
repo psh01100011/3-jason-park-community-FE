@@ -1,11 +1,23 @@
 const express = require('express');
-const {address} = require('./config/appConfig.js');
+//const {address} = require('./config/appConfig.js');
 const cors = require('cors');
 const path = require('path');
 const app = express();
 const port = 3000;
 const cookieParser = require('cookie-parser');
+require('dotenv').config();
 
+const fs = require('fs');
+// config.js 생성 (프론트 전용 ES Module 파일)
+const configJS = `
+export const address = "${process.env.ADDRESS}";
+export const s3_address = "${process.env.S3_ADDRESS}";
+`;
+console.log(configJS);
+fs.writeFileSync(
+  path.join(__dirname, './config/config.js'),
+  configJS
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -52,10 +64,10 @@ app.get('/status/me', (req, res) => {
 
 //footer 
 app.get('/terms', (req, res) => {
-  res.redirect(`${address}api/v1/policy/terms`);
+  res.redirect(`${process.env.ADDRESS}api/v1/policy/terms`);
 });
 app.get('/privacy', (req, res) => {
-  res.redirect(`${address}/api/v1/policy/privacy`);
+  res.redirect(`${process.env.ADDRESS}/api/v1/policy/privacy`);
 });
 
 
