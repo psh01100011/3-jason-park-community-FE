@@ -1,9 +1,52 @@
 import { getCookie } from '../../../util/cookie.js';
 import { address } from '../../../config/config.js';
+import { fetchRequest } from '../../../api/auth/auth.js';
 
+let targetComment = null; //삭제 대상
 export function setCommentList(comments) {
   const commentListContainer = document.getElementById('comments-section');
   const userId = parseFloat(sessionStorage.getItem("userId"));
+
+  const modal = document.getElementById('comment-modal');
+  const confirmBtn = document.getElementById('confirmDeleteComment');
+  const cancelBtn = document.getElementById('cancelDeleteComment');
+
+  // 취소
+  cancelBtn.addEventListener('click', () => {
+    modal.classList.remove('show');
+    targetComment = null;
+  });
+
+  // 삭제
+  confirmBtn.addEventListener('click', async () => {
+    if (!targetComment) return;
+
+    try {
+      const url = `${address}/api/v1/posts/${targetComment.postId}/comments/${targetComment.id}`;
+      const option = {
+        method: 'DELETE',
+        credentials: 'include'
+      };
+
+      const response = await fetchRequest(url, option);
+
+      if (!response.ok) {
+        alert('삭제 실패');
+        return;
+      }
+
+      alert('삭제되었습니다.');
+      window.location.reload();
+
+    } catch (error) {
+      console.error(error);
+      alert('에러가 발생했습니다.');
+    } finally {
+      modal.classList.remove('show');
+      targetComment = null;
+    }
+  });
+
 
   comments.forEach(comment => {
     const item = document.createElement('div');
@@ -39,13 +82,62 @@ export function setCommentList(comments) {
       // 수정 이벤트
       editBtn.addEventListener('click', () => {
         const rewriteComment = document.createElement('div');
-         rewriteComment.classList.add("comment-write");
-        rewriteComment.innerHTML= `
-          <input type="text" id="comment-input" value = ${comment.content} placeholder="댓글을 입력하세요"/>
-          <button id="comment-submit">댓글 수정</button>
-          `;
+          rewriteComment.classList.add("comment-write");
+          rewriteComment.innerHTML= `
+            <input type="text" class="comment-edit-input" value="${comment.content}" />
+            <button class="comment-edit-submit">수정 완료</button>
+            <button class="comment-edit-cancel">취소</button>
+            `;
 
         item.appendChild(rewriteComment);
+
+        const inputEl = rewriteComment.querySelector('.comment-edit-input');
+        const submitEl = rewriteComment.querySelector('.comment-edit-submit');
+        const cancelEl = rewriteComment.querySelector('.comment-edit-cancel');
+
+        // 수정 완료 버튼 → API 호출
+        submitEl.addEventListener('click', async () => {
+          const newContent = inputEl.value.trim();
+
+          if (newContent.length === 0) {
+            alert('댓글 내용을 입력해주세요.');
+            return;
+          }
+
+          try {
+            const url = `${address}/api/v1/posts/${comment.postId}/comments/${comment.id}`;
+            const option = {
+              method: 'PATCH',
+              credentials: 'include',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ content: newContent })
+            };
+
+            const response = await fetchRequest(url, option);
+
+            if (!response.ok) {
+              alert('댓글 수정 실패');
+              return;
+            }
+
+            alert('댓글이 수정되었습니다.');
+            window.location.reload();
+
+          } catch (error) {
+            console.error(error);
+            alert('에러가 발생했습니다.');
+          }
+        });
+
+        // 취소 버튼 → 수정창 제거
+        cancelEl.addEventListener('click', () => {
+          rewriteComment.remove();
+        });
+
+
+
       });
 
       const deleteBtn = document.createElement('button');
@@ -53,17 +145,10 @@ export function setCommentList(comments) {
       deleteBtn.classList.add('comment-delete-btn');
       // 삭제 이벤트
       deleteBtn.addEventListener('click', () => {
-        var msg = "";
-
-        if(confirm("댓글을 삭제 하시겠습니까?")){
-            msg = "삭제 완료";
-
-        }else{
-          msg = "취소";
-        }
-
-    alert(msg);
+        targetComment = comment; // ★ 어떤 댓글을 삭제할지 저장
+        modal.classList.add('show');
       });
+      
 
       actions.appendChild(editBtn);
       actions.appendChild(deleteBtn);

@@ -56,3 +56,42 @@
 .comment-actions button:hover {
   background: #e0e0e0;
 }
+
+/* 댓글 입력 영역 */
+.comment-write {
+  display: flex;
+  gap: 8px;
+}
+
+.comment-edit-input {
+  flex: 1;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.comment-edit-submit {
+  padding: 10px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.comment-edit-cancel {
+  padding: 10px 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.comment-edit-submit:hover {
+  background: #0056b3;
+}
+.comment-edit-cancel:hover {
+  background: #0056b3;
+}

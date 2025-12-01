@@ -15,9 +15,24 @@
     <body>
         <div class = "header-container"></div>
 
-        <div class="modal">
-            <div class="modal_body">Modal</div>
+        <!-- 삭제 확인 모달 -->
+        <div class="modal" id ="post-modal">
+            <div class="modal-content">
+                <p>게시물을 삭제하시겠습니까?</p>
+                <button id="confirmDeletePost">삭제하기</button>
+                <button id="cancelDeletePost">취소</button>
+            </div>
         </div>
+
+        <!-- 삭제 확인 모달 -->
+        <div class="modal" id ="comment-modal">
+            <div class="modal-content">
+                <p>댓글을 삭제하시겠습니까?</p>
+                <button id="confirmDeleteComment">삭제하기</button>
+                <button id="cancelDeleteComment">취소</button>
+            </div>
+        </div>
+
         <div class = "post-detail-page">
             <div id = "post-detail-container"></div>
 

@@ -76,7 +76,7 @@ app.get('/status/me', (req, res) => {
 
 //footer 
 app.get('/terms', (req, res) => {
-  res.redirect(`${process.env.ADDRESS}api/v1/policy/terms`);
+  res.redirect(`${process.env.ADDRESS}/api/v1/policy/terms`);
 });
 app.get('/privacy', (req, res) => {
   res.redirect(`${process.env.ADDRESS}/api/v1/policy/privacy`);

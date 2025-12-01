@@ -1,4 +1,6 @@
 import { getCookie } from '../../../util/cookie.js';
+import { fetchRequest } from '../../../api/auth/auth.js';
+import { address } from '../../../config/config.js';
 
 export function setPostDetail(postDetail) {
   const postDetailContainer = document.getElementById('post-detail-container');
@@ -70,12 +72,45 @@ export function setPostDetail(postDetail) {
     deleteButton.addEventListener('click', () => {
       console.log('삭제 버튼 클릭됨');
       const modal = document.querySelector('.modal');
-      const btnOpenPopup = document.querySelector('.btn-open-popup');
-      modal.style.display = 'block';
-      modal.classList.toggle('show');
+      modal.classList.add('show');
     });
   }
+  // 모달 관련 요소들
+  const modal = document.getElementById('post-modal');
+  const confirmBtn = document.getElementById('confirmDeletePost');
+  const cancelBtn = document.getElementById('cancelDeletePost');
 
+  // 취소 버튼 → 모달 닫기
+  cancelBtn.addEventListener('click', () => {
+    modal.classList.remove('show');
+  });
+
+  // 삭제하기 버튼 → API 호출
+  confirmBtn.addEventListener('click', async () => {
+    try {
+      const url = `${address}/api/v1/posts/${postDetail.id}/status`;
+      const option = {
+        method: 'PATCH',
+        credentials: 'include' 
+      }
+      const response = await fetchRequest(url, option);
+
+      if (!response.ok) {
+        alert('삭제에 실패했습니다.');
+        console.log(await response.text());
+        return;
+      }
+
+      alert('삭제되었습니다.');
+      window.location.href = '/'; 
+
+    } catch (error) {
+      console.error(error);
+      alert('에러가 발생했습니다.');
+    } finally {
+      modal.classList.remove('show');
+    }
+  });
   
 
 

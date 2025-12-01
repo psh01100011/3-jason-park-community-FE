@@ -45,8 +45,10 @@ document.addEventListener('DOMContentLoaded', async () =>{
         commentButton.addEventListener('click', async (e) => {
             e.preventDefault();
 
+            console.log('댓글 작성 감지');
             const comment = document.getElementById('comment-input').value;
             if (!comment) {
+                console.log('댓글 입력 필요');
                 return;
             }   
 
