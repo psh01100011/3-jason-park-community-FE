@@ -9,7 +9,10 @@ export function setPostList(posts) {
       <small>조회수 ${post.viewCount} • 댓글 ${post.commentCount} • 좋아요  ${post.likeCount}</small>
       <hr>
       
+      <div class="post-user">
+      <img class="profile-img" src="${post.profileImage || '/basic.jpg'}" alt="profile">
       <small>${post.nickname} • ${new Date(post.createdAt).toLocaleString()}</small>
+      </div>
     `;
 
     item.addEventListener('click', () => {
