@@ -141,6 +141,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 catch (err){
                     console.error('사진 등록 중 오류 발생:', err);
                     alert('회원가입에 실패했습니다. 다시 시도해주세요.');
+                    return;
                 }
             }
             const email = document.getElementById('email').value;

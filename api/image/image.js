@@ -3,7 +3,7 @@ import { s3_address } from '../../../config/config.js';
 // 이미지 업로드
 export async function uploadImage(image) {
     const url = s3_address;
-
+    console.log(url);
     const formData = new FormData();
     formData.append('profileImage', image);
     const option = {
