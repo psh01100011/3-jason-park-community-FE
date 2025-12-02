@@ -4,7 +4,7 @@ import { checkSession } from '../../../util/session.js';
 import { loadFooter } from '../../component/footer/footer.js';
 import { fetchRequest } from '../../../api/auth/auth.js';
 import { address } from '../../../config/config.js';
-
+import { uploadImage } from '../../../api/image/image.js';
 document.addEventListener('DOMContentLoaded', async () =>{
     //세션 체크 위치 좀 고민해보기 -> 지금은 헤더에서도 체크 중인데, 여기서도 체크하면 중복 체크하는 중임
     // 뒤로가기 문제 -> 뒤로 가기 할 때 현재 페이지에 세션 없이도 들어와짐 -> 세션 체크가 무의미한 상황
@@ -29,10 +29,26 @@ if (submitButton) {
 
         const title = document.getElementById('title').value;
         const content = document.getElementById('content').value;
+        const file = document.getElementById('imageInput').files[0];
+        
         if (!title || !content) {
             alert('제목과 내용을 모두 입력해주세요.');
             return;
         }   
+
+        let postImage = null;
+        if(file != null){
+            try {
+                postImage = await uploadImage(file);
+                console.log(await postImage);
+            }
+            catch (err){
+                console.error('사진 등록 중 오류 발생:', err);
+                alert('글 작성에 실패했습니다. 다시 시도해주세요.');
+                return;
+            }
+        }
+
 
         try {
             const url = `${address}/api/v1/posts`;
@@ -43,7 +59,8 @@ if (submitButton) {
                 },
                 body: JSON.stringify({
                     title: title,
-                    content: content
+                    content: content,
+                    image : postImage
                 }),
                 credentials: 'include'
             };

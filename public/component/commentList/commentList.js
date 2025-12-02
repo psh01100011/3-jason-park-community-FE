@@ -60,6 +60,7 @@ export function setCommentList(comments) {
     const metaLeft = document.createElement('div');
     metaLeft.classList.add('comment-meta-left');
     metaLeft.innerHTML = `
+      <img class="profile-img" src="${comment.profileImage || '/basic.jpg'}" alt="profile">
       <span class="comment-nickname">${comment.nickname}</span>
       <span class="comment-date">${new Date(comment.createdAt).toLocaleString()}</span>
     `;

@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
     //헤더 로딩
     loadHeader();
     loadFooter();
-    setProfile();
+    setProfile(null);
 
     // 로그인하러 가기 이벤트
     const gotoLoginButton  = document.getElementById('gotoLoginButton');

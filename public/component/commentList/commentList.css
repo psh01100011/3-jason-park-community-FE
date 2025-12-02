@@ -95,3 +95,11 @@
 .comment-edit-cancel:hover {
   background: #0056b3;
 }
+
+.profile-img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #ddd;
+}

@@ -8,6 +8,8 @@ export function setWriteForm() {
       <input class="write-form-entity" id="title" type="text" placeholder="제목"><br>
       <p>내용</p>
       <textarea class="write-form-entity" id="content" placeholder="내용"></textarea><br>
+      <p>이미지*</p>
+      <input id ='imageInput' type ='file' accept = 'image/*'></input>
     `;
     writeForm.appendChild(postForm);
 }
@@ -15,4 +17,5 @@ export function setWriteForm() {
 export function setRewriteContent(postDetail) {
   document.getElementById('title').value = postDetail.title;
   document.getElementById('content').textContent = postDetail.content;
+  document.getElementById('imageInput').file[0] = postDetail.image;
 }

@@ -1,4 +1,4 @@
-export function setProfile() {
+export function setProfile(userProfile) {
     const imageContainer = document.getElementById('image-container');
     //화면 구성
 
@@ -8,9 +8,7 @@ export function setProfile() {
     const image = document.createElement('img');
     image.classList.add('profile-img');
     image.id = 'profile';
-    const userProfile = sessionStorage.getItem("profile");
     if(userProfile != null){
-        //사진 추가
         image.src = userProfile;
     }
     else{
