@@ -26,6 +26,12 @@ export function setPostDetail(postDetail) {
   const postMeta = document.createElement('div');
   postMeta.className = 'post-meta';
 
+  //프로필 이미지
+  const profileImageSpan = document.createElement('img');
+  profileImageSpan.className ='profile-img';
+  profileImageSpan.src = postDetail.profileImage || '/basic.jpg';
+  profileImageSpan.alt = "profile"
+
   // 닉네임 요소
   const nicknameSpan = document.createElement('span');
   nicknameSpan.className = 'nickname';
@@ -37,6 +43,7 @@ export function setPostDetail(postDetail) {
   dateSpan.textContent = new Date(postDetail.createdAt).toLocaleString();
 
   // postMeta에 요소 추가
+  postMeta.appendChild(profileImageSpan);
   postMeta.appendChild(nicknameSpan);
   postMeta.appendChild(dateSpan);
 
@@ -113,6 +120,10 @@ export function setPostDetail(postDetail) {
   });
   
 
+  //본문 이미지
+  const imageEl = document.createElement('img');
+  imageEl.src = postDetail.image;
+  imageEl.classList.add('post-detail-image'); 
 
   // 본문 내용
   const contentEl = document.createElement('div');
@@ -131,6 +142,7 @@ export function setPostDetail(postDetail) {
   container.appendChild(titleEl);
   container.appendChild(headerEl);
   container.appendChild(document.createElement('hr'));
+  container.appendChild(imageEl);
   container.appendChild(contentEl);
   container.appendChild(document.createElement('hr'));
   container.appendChild(footerEl);

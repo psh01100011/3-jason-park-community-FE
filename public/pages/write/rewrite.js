@@ -6,6 +6,7 @@ import { checkSession } from '../../../util/session.js';
 import { loadFooter } from '../../component/footer/footer.js';
 import { fetchRequest } from '../../../api/auth/auth.js';
 import { address } from '../../../config/config.js';
+import { uploadImage } from '../../../api/image/image.js';
 
 document.addEventListener('DOMContentLoaded', async () =>{
     //세션 체크 위치 좀 고민해보기 -> 지금은 헤더에서도 체크 중인데, 여기서도 체크하면 중복 체크하는 중임
@@ -39,6 +40,7 @@ if (submitButton) {
 
         const title = document.getElementById('title').value;
         const content = document.getElementById('content').value;
+        const file = document.getElementById('imageInput').files[0];
         let postId = window.location.pathname
         postId = postId.replace('/rewrite/','');
         if (!title || !content) {
@@ -46,9 +48,22 @@ if (submitButton) {
             return;
         }   
 
+        let postImage = null;
+        if(file != null){
+            try {
+                postImage = await uploadImage(file);
+                console.log(await postImage);
+            }
+            catch (err){
+                console.error('사진 등록 중 오류 발생:', err);
+                alert('글 수정에 실패했습니다. 다시 시도해주세요.');
+                return;
+            }
+        }
+
         try {
             const url = `${address}/api/v1/posts/${postId}`;
-            const option = {
+            var option = {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,6 +74,20 @@ if (submitButton) {
                 }),
                 credentials: 'include'
             };
+            if(postImage != null){
+                option = {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        title: title,
+                        content: content,
+                        image : postImage
+                    }),
+                    credentials: 'include'
+                };
+            }
             const response = await fetchRequest(url, option);
 
             if (response.status !== 200) {

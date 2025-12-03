@@ -27,6 +27,27 @@
   overflow-y: auto;
 }
 
+/* 숨겨진 input */
+.hidden-file-input {
+  display: none;
+}
+
+/* 커스텀 파일 선택 버튼 */
+.custom-file-button {
+  padding: 6px 12px;
+  background: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+}
+
+/* 상태 텍스트 */
+.file-status {
+  margin-left: 10px;
+  color: #666;
+}
+
 /* 반응형 */
 @media (max-width: 600px) {
   .write-form {
