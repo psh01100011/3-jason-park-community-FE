@@ -103,10 +103,10 @@ export async function loadHeader() {
               credentials: 'include' 
             };
             const response = await fetchRequest(url, option);
-
+            
+            sessionStorage.removeItem("userId");
             if(response.status == 200){
               console.log('로그아웃 성공')
-              sessionStorage.removeItem("userId");
               window.location.href = '/login';
 
             }
