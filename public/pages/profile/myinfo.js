@@ -23,6 +23,10 @@ document.addEventListener('DOMContentLoaded', async () =>{
     }
     const user = await result.json()
     
+
+    const userEmail = document.getElementById('email');
+    userEmail.textContent= user.email;
+
     setProfile(user.profileImage);
     // 닉네임 중복 확인 이벤트 : debounce 적용하기
     const nicknameInput = document.getElementById('nickname');
@@ -34,7 +38,8 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
             // 중복 확인 API 호출 : 로그인과 닉네임 체크에서 중복 사용 중
             try {
-                const response = await fetch(`${address}api/v1/users/nickname`, {
+
+                const response = await fetch(`${address}/api/v1/users/nickname`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -43,6 +48,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
                         nickname
                     })
                 });
+
                 const message = document.getElementById('nickname-message');
                 if(await response.json()){
                     message.textContent = '사용 가능한 닉네임입니다.';
@@ -117,7 +123,35 @@ document.addEventListener('DOMContentLoaded', async () =>{
         });
     }
        
-    
+    const withdrawButton = document.getElementById('withdrawUser');
+    if (withdrawButton) {
+        withdrawButton.addEventListener('click', async(e) => {
+            e.preventDefault();
+            try {
+                const url = `${address}/api/v1/users/me/status`;
+                const option = {
+                    method: 'PATCH',
+                    credentials: 'include' 
+                };
+                const response = await fetchRequest(url,option);
+
+                if (response.status !== 204) {
+                    throw new Error('수정 요청 실패');
+                }
+                alert('탈퇴되었습니다.');
+                sessionStorage.removeItem("userId");
+                window.location.href = '/';
+
+
+            } catch(err){
+                console.error('탈퇴 중 오류 발생:', err);
+                alert('탈퇴에 실패했습니다. 다시 시도해주세요.');
+            }
+
+
+        });
+        
+    }
     // debounce function
     function debounce(func, delay) {
         let timer;

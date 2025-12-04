@@ -38,6 +38,15 @@ body {
   box-sizing: border-box;
 }
 
+
+.myinfo-email {
+  margin-top: 0px;
+  margin-left: 20px;
+  width: 100%;
+  font-size: 15px;
+  color: #444
+}
+
 /* 버튼 스타일 */
 #submitButton {
   background-color: #007bff;
@@ -56,6 +65,14 @@ body {
   color: #aaa;
 }
 
+#withdrawUser{
+  background-color: #ccc;
+  color: white;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.2s;
+
+}
 
 
 /* 반응형 예시 */
