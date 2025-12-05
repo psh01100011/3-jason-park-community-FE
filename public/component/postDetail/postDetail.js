@@ -108,10 +108,14 @@ export function setPostDetail(postDetail) {
     }
   });
 
+  
   // 본문 이미지
   const imageEl = document.createElement('img');
-  imageEl.src = postDetail.image;
-  imageEl.classList.add('post-detail-image');
+  if(postDetail.image != null){
+    imageEl.src = postDetail.image;
+    imageEl.classList.add('post-detail-image');
+  }
+
 
   // 본문 내용
   const contentEl = document.createElement('div');
