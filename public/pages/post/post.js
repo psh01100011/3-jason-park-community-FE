@@ -25,8 +25,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
         const postDetail = await fetchPostDetail(postId);
 
         if (!postDetail) {
-            alert('게시물을 불러올 수 없습니다.');
-            location.replace('/');
+            location.replace('/login');
             return;
         }
 

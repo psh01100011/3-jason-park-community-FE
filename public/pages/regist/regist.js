@@ -19,41 +19,82 @@ document.addEventListener('DOMContentLoaded', async () =>{
         });
     }
 
+    let check_email =false;
+    let check_password =false;
+    let check_passwordCheck =false;
+    let check_nickname =false;
+
+
 
     // 비밀번호 입력 시 비밀번호 확인 메시지 초기화 
     const passwordInput = document.getElementById('password');
+    const passwordCheckMessage = document.getElementById('password-check-message');
+    const passwordMessage = document.getElementById('password-message');
     if (passwordInput) {
         passwordInput.addEventListener('input', (e) => {
-            const passwordMessage = document.getElementById('password-message');
-            passwordMessage.textContent = '';
+            passwordCheckMessage.textContent = '';
+            const passwordCheck = e.target.value;
+
+            if(passwordCheck.length < 8){
+                passwordMessage.textContent = '길이가 너무 짧습니다.';
+                passwordMessage.style.color = 'red';
+                return;
+            }
+
+            const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-={}[\]|:;"'<>,.?/~`]).{8,}$/;
+
+            if (!passwordRegex.test(passwordCheck)) {
+                passwordMessage.textContent = '대문자, 소문자, 숫자, 특수문자를 포함해야 합니다.';
+                passwordMessage.style.color = 'red';
+                return;
+            }
+            passwordMessage.textContent = '안전한 비밀번호';
+            passwordMessage.style.color = 'green';
+
+
         });
     }
     // 비밀번호 확인 이벤트 : debounce 적용하기
     const passwordCheckInput = document.getElementById('passwordCheck');
     if (passwordCheckInput) {
         passwordCheckInput.addEventListener('input', debounce((e) => {
+
+            const pwValid = passwordMessage.style.color !== "green";
+            if(pwValid){
+                return;
+            }
+
             const password = document.getElementById('password').value;
             const passwordCheck = e.target.value;
 
-            const passwordMessage = document.getElementById('password-message');
-
             if (password === passwordCheck) {
-                passwordMessage.textContent = '비밀번호가 일치합니다.';
-                passwordMessage.style.color = 'green';
+                passwordCheckMessage.textContent = '비밀번호가 일치합니다.';
+                passwordCheckMessage.style.color = 'green';
             } else {
-                passwordMessage.textContent = '비밀번호가 일치하지 않습니다.';
-                passwordMessage.style.color = 'red';
+                passwordCheckMessage.textContent = '비밀번호가 일치하지 않습니다.';
+                passwordCheckMessage.style.color = 'red';
             }
         }, 300));
     }
 
 
 
-    // 아이디 중복 확인 이벤트 : debounce 적용하기
+    // 이메일 중복 확인 이벤트 : debounce 적용하기
     const emailInput = document.getElementById('email');
     if (emailInput) {
         emailInput.addEventListener('input', debounce(async(e) => {
             const email = e.target.value;
+            const emailCheck = email.trim();
+
+            const message = document.getElementById('email-message');
+            //형식 검증 ()
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailCheck)) {
+                message.textContent = "올바른 이메일 형식이 아닙니다.";
+                message.style.color = "red";
+                return;
+            }       
+
 
             // 중복 확인 API 호출 구현 필요
             try {
@@ -68,7 +109,6 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 });
                 const result = await response.json();
                 console.log(result);
-                const message = document.getElementById('email-message');
                 if(result){
                     message.textContent = '사용 가능한 이메일입니다.';
                     message.style.color = 'green';
@@ -88,8 +128,18 @@ document.addEventListener('DOMContentLoaded', async () =>{
     // 닉네임 중복 확인 이벤트 : debounce 적용하기
     const nicknameInput = document.getElementById('nickname');
     if (nicknameInput) {
+        const message = document.getElementById('nickname-message');
         nicknameInput.addEventListener('input', debounce(async(e) => {
             const nickname = e.target.value;
+            if(nickname.length < 2){
+                message.textContent = '길이가 너무 짧습니다.';
+                message.style.color = 'red';
+                return;
+            }
+
+            
+
+
 
             // 중복 확인 API 호출 구현 필요
             try {
@@ -102,7 +152,6 @@ document.addEventListener('DOMContentLoaded', async () =>{
                         nickname
                     })
                 });
-                const message = document.getElementById('nickname-message');
                 const result = await response.json();
                 console.log(result);
                 if(result){
@@ -127,6 +176,16 @@ document.addEventListener('DOMContentLoaded', async () =>{
     if (registButton) {
         registButton.addEventListener('click', async(e) => {
             e.preventDefault();
+
+            const emailValid = document.getElementById('email-message').style.color !== "green";
+            const nicknameValid = document.getElementById('nickname-message').style.color !== "green";
+            const pwValid = document.getElementById('password-message').style.color !== "green";
+            const pwCheckValid = document.getElementById('password-check-message').style.color !== "green";
+
+            if (emailValid || nicknameValid || pwValid || pwCheckValid) {
+                return;
+            }
+
 
             const profile = document.getElementById('profile');
             const file = document.getElementById('fileInput').files[0];
