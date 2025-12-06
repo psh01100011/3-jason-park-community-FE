@@ -13,19 +13,24 @@
     <body>
         <div class = "header-container"></div>
         
+
+
+        
         <div class = "myinfo-container">    
+
+        <!-- 삭제 확인 모달 -->
 
         <form class="myinfo-form">
             <h1>내 정보 수정</h1>
 
             <p>프로필</p>
             <div id =image-container></div>
-
+            <p id = "basicButton">기본 프로필 사용</p>
             <p class="myinfo">이메일</p>
             <p class="myinfo-email" id = 'email'></p>
 
             <p>닉네임</p>
-            <input class="myinfo-entity" id = "nickname" type="text" placeholder="닉네임">
+            <input class="myinfo-entity" id = "nickname" type="text" minlength="2" maxlength="10" placeholder="닉네임">
             <p class = message id = nickname-message></p><br>
             <button class="myinfo-entity" id = "submitButton">완료</button> 
             <hr>
@@ -34,6 +39,14 @@
         </form>
 
 
+        </div>
+
+        <div class="modal" id ="withdraw-modal">
+            <div class="modal-content">
+                <p>정말 탈퇴하시겠습니까?</p>
+                <button id="confirmWithdraw">진짜로 탈퇴하기</button>
+                <button id="cancelWithdraw">취소</button>
+            </div>
         </div>
         <div class = "footer-container"></div>
         <script type="module" src="/public/pages/profile/myinfo.js"></script>

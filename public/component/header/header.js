@@ -33,7 +33,7 @@ export async function loadHeader() {
 
   // 앱 이름
   const title = document.createElement('h1');
-  title.textContent = '아무말대잔치';
+  title.textContent = '아무말 담벼락';
   title.classList.add('app-title');
   title.addEventListener('click', () => {
     window.location.href = '/';

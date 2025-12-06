@@ -59,6 +59,10 @@ body {
   text-align: center;
 }
 
+#registButton:hover{
+  color: #003eb1;
+}
+
 /* placeholder 스타일 */
 .login-entity::placeholder {
   color: #aaa;

@@ -5,10 +5,10 @@ export function setWriteForm() {
   postForm.classList.add('write-form');
   postForm.innerHTML = `
     <p>제목</p>
-    <input class="write-form-entity" id="title" type="text" placeholder="제목"><br>
+    <input class="write-form-entity" id="title" type="text" maxlength="26" placeholder="제목 (최대 26글자)"><br>
 
     <p>내용</p>
-    <textarea class="write-form-entity" id="content" placeholder="내용"></textarea><br>
+    <textarea class="write-form-entity" id="content" maxlength="500" placeholder="내용 (최대 500자)"></textarea><br>
 
     <p>이미지*</p>
 

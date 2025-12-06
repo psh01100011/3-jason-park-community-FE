@@ -85,7 +85,7 @@ export function setCommentList(comments) {
         const rewriteComment = document.createElement('div');
           rewriteComment.classList.add("comment-write");
           rewriteComment.innerHTML= `
-            <input type="text" class="comment-edit-input" value="${comment.content}" />
+            <input type="text" class="comment-edit-input" maxlength="500" placeholder="댓글을 입력하세요. (최대 500글자)" value="${comment.content}" />
             <button class="comment-edit-submit">수정 완료</button>
             <button class="comment-edit-cancel">취소</button>
             `;
@@ -142,7 +142,7 @@ export function setCommentList(comments) {
       });
 
       const deleteBtn = document.createElement('button');
-      deleteBtn.textContent = '삭제';
+      deleteBtn.textContent = '지우기';
       deleteBtn.classList.add('comment-delete-btn');
       // 삭제 이벤트
       deleteBtn.addEventListener('click', () => {

@@ -74,6 +74,46 @@ body {
 
 }
 
+/* 기본 프로필 버튼 */
+#basicButton {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #007bff;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* hover 효과 */
+#basicButton:hover {
+  color: #003eb1;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.show {
+  display: flex;
+}
+
+.modal-content {
+  background: white;
+  padding: 24px;
+  border-radius: 8px;
+  text-align: center;
+  min-width: 260px;
+}
+
+.modal-content button {
+  margin: 6px;
+  padding: 8px 16px;
+}
+
 
 /* 반응형 예시 */
 @media (max-width: 400px) {

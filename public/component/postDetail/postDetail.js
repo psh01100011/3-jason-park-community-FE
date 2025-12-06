@@ -53,11 +53,11 @@ export function setPostDetail(postDetail) {
 
     const editButton = document.createElement('button');
     editButton.id = 'editButton';
-    editButton.textContent = '수정';
+    editButton.textContent = '고쳐쓰기';
 
     const deleteButton = document.createElement('button');
     deleteButton.id = 'deleteButton';
-    deleteButton.textContent = '삭제';
+    deleteButton.textContent = '떼어내기';
 
     postActions.appendChild(editButton);
     postActions.appendChild(deleteButton);
@@ -98,7 +98,12 @@ export function setPostDetail(postDetail) {
         return;
       }
 
-      alert('삭제되었습니다.');
+      await Swal.fire({
+        icon: 'success',
+        title: '삭제되었습니다!',
+        timer: 1500,
+        showConfirmButton: false
+      });
       window.location.href = '/';
     } catch (error) {
       console.error(error);

@@ -171,6 +171,21 @@ document.addEventListener('DOMContentLoaded', async () =>{
         }, 300));
     }
 
+        // 기본 이미지 설정 버튼
+    const basicButton = document.getElementById('basicButton');
+    if(basicButton){
+        basicButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            const profile = document.getElementById('profile');
+            profile.src = '/basic.jpg';
+
+            const fileInput = document.getElementById('fileInput');
+            if (fileInput) {
+                fileInput.value = '';           // 선택했던 파일도 초기화 (선택 해제)
+            }
+        });
+    }
+
     // 회원가입 버튼 이벤트
     const registButton = document.getElementById('registButton');
     if (registButton) {
@@ -190,7 +205,7 @@ document.addEventListener('DOMContentLoaded', async () =>{
             const profile = document.getElementById('profile');
             const file = document.getElementById('fileInput').files[0];
             console.log(profile);
-            let profileImage = null;
+            let profileImage = '/basic.jpg';
             if(!profile.src.includes('basic.jpg')){
                 try {
                     profileImage = await uploadImage(file);

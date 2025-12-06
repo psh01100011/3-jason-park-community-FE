@@ -73,6 +73,24 @@ p{
   text-align: center;
 }
 
+#gotoLoginButton:hover{
+  color: #003eb1;
+}
+
+/* 기본 프로필 버튼 */
+#basicButton {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #007bff;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* hover 효과 */
+#basicButton:hover {
+  color: #003eb1;
+}
+
 /* 반응형 예시 */
 @media (max-width: 400px) {
   .regist-form {
