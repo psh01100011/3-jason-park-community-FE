@@ -136,10 +136,10 @@ document.addEventListener('DOMContentLoaded', async () =>{
                                 console.log(await profileImage);
                                 updateBody.profileImage = profileImage;
                             }
-                        }
-                        else{
-                            profileImage = '/basic.jpg';
-                            updateBody.profileImage = profileImage;
+                            else{
+                                profileImage = '/basic.jpg';
+                                updateBody.profileImage = profileImage;
+                            }
                         }
 
 

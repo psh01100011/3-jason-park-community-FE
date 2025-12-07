@@ -49,13 +49,14 @@
 }
 
 .post-detail-image {
-  width: 100%;
-  max-width: 100%;
-  height: auto;          /* 세로는 자동 비율 맞춰서 */
+  width: auto;
+  max-width: 60%;   /* 적당한 가로폭 */
+  height: auto;
+  max-height: 500px;
+  object-fit: contain;   /* 비율 유지하면서 잘림 */
   border-radius: 8px;
-  margin: 16px 0;   
+  margin: 16px 0;
   display: block;
-  background: #f7f7f7;  
 }
 
 /* 본문 내용 */
