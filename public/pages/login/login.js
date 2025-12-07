@@ -30,7 +30,9 @@ document.addEventListener('DOMContentLoaded', async () =>{
             // input 값 가져오기
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
-            
+            if (!email || !password) {
+                return;
+            }   
             try {
                 const url = `${address}/api/v1/auth`;
                 const option = {
