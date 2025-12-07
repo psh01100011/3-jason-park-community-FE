@@ -32,55 +32,63 @@ if (submitButton) {
         const file = document.getElementById('imageInput').files[0];
         
         if (!title || !content) {
-            alert('제목과 내용을 모두 입력해주세요.');
             return;
         }   
 
-        let postImage = null;
-        if(file != null){
-            try {
-                postImage = await uploadImage(file);
-                console.log(await postImage);
+        Swal.fire({
+            title: '담벼락에 붙이는 중...',
+            didOpen: async () => {
+                Swal.showLoading();
+
+                try {
+
+
+                    let postImage = null;
+                    if(file != null){
+                    postImage = await uploadImage(file);
+                    console.log(await postImage);
+                    }
+
+                    const url = `${address}/api/v1/posts`;
+                    const option = {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            title: title,
+                            content: content,
+                            image : postImage
+                        }),
+                        credentials: 'include'
+                    };
+                    const response = await fetchRequest(url, option);
+
+                    if (response.status !== 201) {
+                        throw new Error('글 작성 요청 실패');
+                    }
+                    // 글 작성 성공 시 메인 페이지로 이동
+                    Swal.fire({
+                        icon: 'success',
+                        title: '성공했습니다!',
+                        timer: 1200,
+                        showConfirmButton: false
+                    }).then(() => {
+                        location.replace('/');
+                    });
+
+
+                } catch (e) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: '다시 시도해주세요.',
+                    });
+                }
+    
             }
-            catch (err){
-                console.error('사진 등록 중 오류 발생:', err);
-                alert('글 작성에 실패했습니다. 다시 시도해주세요.');
-                return;
-            }
-        }
+        });
 
 
-        try {
-            const url = `${address}/api/v1/posts`;
-            const option = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    title: title,
-                    content: content,
-                    image : postImage
-                }),
-                credentials: 'include'
-            };
-            const response = await fetchRequest(url, option);
-
-            if (response.status !== 201) {
-                throw new Error('글 작성 요청 실패');
-            }
-            // 글 작성 성공 시 메인 페이지로 이동
-            location.replace('/');
-
-        } catch (err) {
-            console.error('글 작성 중 오류 발생:', err);
-            alert('글 작성에 실패했습니다. 다시 시도해주세요.');
-        }
     });
-
-
-
-
-
 
 }

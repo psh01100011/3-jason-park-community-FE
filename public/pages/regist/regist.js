@@ -202,49 +202,62 @@ document.addEventListener('DOMContentLoaded', async () =>{
             }
 
 
-            const profile = document.getElementById('profile');
-            const file = document.getElementById('fileInput').files[0];
-            console.log(profile);
-            let profileImage = '/basic.jpg';
-            if(!profile.src.includes('basic.jpg')){
-                try {
-                    profileImage = await uploadImage(file);
-                    console.log(await profileImage);
-                    
-                }
-                catch (err){
-                    console.error('사진 등록 중 오류 발생:', err);
-                    alert('회원가입에 실패했습니다. 다시 시도해주세요.');
-                    return;
-                }
-            }
-            const email = document.getElementById('email').value;
-            const nickname = document.getElementById('nickname').value;
-            const password = document.getElementById('password').value;
-            try {
-                const response = await fetch(`${address}/api/v1/users`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        profileImage,
-                        nickname,
-                        email,
-                        password
-                    })
-                });
-                
-                if (response.status !== 201) {
-                    throw new Error('회원가입 요청 실패');
-                }
-                alert('회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.');
-                window.location.href = '/login';
+            Swal.fire({
+                title: '가입 중...',
+                didOpen: async () => {
+                    Swal.showLoading();
 
-            } catch (err) {
-                console.error('회원가입 중 오류 발생:', err);
-                alert('회원가입에 실패했습니다. 다시 시도해주세요.');
-            }
+                    try {
+
+
+                        const profile = document.getElementById('profile');
+                        const file = document.getElementById('fileInput').files[0];
+                        console.log(profile);
+                        let profileImage = '/basic.jpg';
+                        if(!profile.src.includes('basic.jpg')){
+
+                            profileImage = await uploadImage(file);
+                            console.log(await profileImage);
+                        }
+
+                        const email = document.getElementById('email').value;
+                        const nickname = document.getElementById('nickname').value;
+                        const password = document.getElementById('password').value;
+
+                        const response = await fetch(`${address}/api/v1/users`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                profileImage,
+                                nickname,
+                                email,
+                                password
+                            })
+                        });
+                
+                        if (response.status !== 201) {
+                            throw new Error('회원가입 요청 실패');
+                        }
+                        Swal.fire({
+                            icon: 'success',
+                            title: '성공했습니다!',
+                            timer: 1200,
+                            showConfirmButton: false
+                        }).then(() => {
+                            window.location.href = '/login';
+                        });
+
+                    } catch (e) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '다시 시도해주세요.',
+                        });
+                    }
+            
+                }
+            });
         });
     }
     

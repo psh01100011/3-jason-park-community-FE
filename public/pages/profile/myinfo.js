@@ -109,68 +109,82 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 return;
             }
 
-            const updateBody = {};
+            Swal.fire({
+                title: '담벼락에 붙이는 중...',
+                didOpen: async () => {
+                    Swal.showLoading();
 
-            //닉네임 변경 체크
-            const nicknameInput = document.getElementById('nickname').value;
-            //변경이 있으면 요청에 추가
-            if(nicknameInput.length != 0){
-                updateBody.nickname = nicknameInput;
-            }
-            
-            //이미지 체크
-            const profile = document.getElementById('profile');
-            const file = document.getElementById('fileInput').files[0];
-            let profileImage = null;
-            if(!profile.src.endsWith(user.profileImage)){
-                if(file != null){
                     try {
-                        profileImage = await uploadImage(file);
-                        console.log(await profileImage);
-                        updateBody.profileImage = profileImage;
+
+                        const updateBody = {};
+
+                        //닉네임 변경 체크
+                        const nicknameInput = document.getElementById('nickname').value;
+                        //변경이 있으면 요청에 추가
+                        if(nicknameInput.length != 0){
+                            updateBody.nickname = nicknameInput;
+                        }
+            
+                        //이미지 체크
+                        const profile = document.getElementById('profile');
+                        const file = document.getElementById('fileInput').files[0];
+                        let profileImage = null;
+                        if(!profile.src.endsWith(user.profileImage)){
+                            if(file != null){
+
+                                profileImage = await uploadImage(file);
+                                console.log(await profileImage);
+                                updateBody.profileImage = profileImage;
+                            }
+                        }
+                        else{
+                            profileImage = '/basic.jpg';
+                            updateBody.profileImage = profileImage;
+                        }
+
+
+
+                        if (Object.keys(updateBody).length === 0) {
+                            window.location.href = '/';
+                            return;
+                        }
+
+
+                        const url = `${address}/api/v1/users/me`;
+                        const option = {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(
+                                updateBody
+                            ),
+                            credentials: 'include'
+                        };
+                        const response = await fetchRequest(url, option);
+
+                        if (response.status !== 204) {
+                            throw new Error('수정 요청 실패');
+                        }
+
+                        Swal.fire({
+                            icon: 'success',
+                            title: '성공했습니다!',
+                            timer: 1200,
+                            showConfirmButton: false
+                        }).then(() => {
+                            location.replace('/');
+                        });
+
+                    } catch (e) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '다시 시도해주세요.',
+                        });
                     }
-                    catch (err){
-                        console.error('사진 등록 중 오류 발생:', err);
-                        alert('내 정보 수정에 실패했습니다. 다시 시도해주세요.');
-                        return;
-                    }
+    
                 }
-                else{
-                    profileImage = '/basic.jpg';
-                    updateBody.profileImage = profileImage;
-                }
-            }
-
-
-            if (Object.keys(updateBody).length === 0) {
-                window.location.href = '/';
-                return;
-            }
-
-            try {
-                const url = `${address}/api/v1/users/me`;
-                const option = {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(
-                        updateBody
-                    ),
-                    credentials: 'include'
-                };
-                const response = await fetchRequest(url, option);
-
-                if (response.status !== 204) {
-                    throw new Error('수정 요청 실패');
-                }
-                alert('내 정보가 변경되었습니다.');
-                window.location.href = '/';
-
-            } catch (err) {
-                console.error('내 정보 수정 중 오류 발생:', err);
-                alert('내 정보 수정에 실패했습니다. 다시 시도해주세요.');
-            }
+            });
         });
     }
 

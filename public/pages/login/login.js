@@ -56,8 +56,12 @@ document.addEventListener('DOMContentLoaded', async () =>{
 
             } catch (err) {
                 console.error('로그인 중 오류 발생:', err);
-                alert('아이디 또는 비밀번호가 잘못되었습니다.');
-
+                await Swal.fire({
+                    icon: 'error',
+                    title: '로그인 실패!',
+                    showConfirmButton: false,
+                    timer: 1200
+                });
                 document.getElementById('email').value = '';
                 document.getElementById('password').value = '';
             }

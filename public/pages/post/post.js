@@ -78,8 +78,13 @@ document.addEventListener('DOMContentLoaded', async () =>{
                 setCommentList(comments);
 
             } catch (err) {
-                console.error('댓글 작성 중 오류 발생:', err);
-                alert('글 작성에 실패했습니다. 다시 시도해주세요.');
+                await Swal.fire({
+                    icon: 'error',
+                    title: '다시 시도해주세요.',
+                    showConfirmButton: false,
+                    timer: 1200
+                });
+
             }
     });
 

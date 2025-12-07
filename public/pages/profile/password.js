@@ -67,37 +67,47 @@ document.addEventListener('DOMContentLoaded', async () =>{
     if (submitButton) {
         submitButton.addEventListener('click', async(e) => {
             e.preventDefault();
-            
-            const password = document.getElementById('password').value;
-            try {
-                const url = `${address}/api/v1/users/me/auth`; 
-                const option ={
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        password
-                    }),
-                    credentials: 'include'
-                };
-                const response = await fetchRequest(url, option);
-                
-                if (response.status !== 204) {
-                    throw new Error('수정 요청 실패');
-                }
-                await Swal.fire({
-                    icon: 'success',
-                    title: '변경에 성공했습니다!',
-                    timer: 1500,
-                    showConfirmButton: false
-                });
-                window.location.href = '/';
+            Swal.fire({
+                title: '변경 중...',
+                didOpen: async () => {
+                    Swal.showLoading();
 
-            } catch (err) {
-                console.error('비밀번호 수정 중 오류 발생:', err);
-                alert('비밀번호 수정에 실패했습니다. 다시 시도해주세요.');
-            }
+                    try {
+                        const password = document.getElementById('password').value;
+
+                        const url = `${address}/api/v1/users/me/auth`; 
+                        const option ={
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                                password
+                            }),
+                            credentials: 'include'
+                        };
+                        const response = await fetchRequest(url, option);
+                
+                        if (response.status !== 204) {
+                            throw new Error('수정 요청 실패');
+                        }
+                        Swal.fire({
+                            icon: 'success',
+                            title: '성공했습니다!',
+                            timer: 1200,
+                            showConfirmButton: false
+                        }).then(() => {
+                            window.location.href = '/';
+                        });
+
+                    } catch (e) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '다시 시도해주세요.',
+                        });
+                    }
+                }
+            });
         });
     }
        

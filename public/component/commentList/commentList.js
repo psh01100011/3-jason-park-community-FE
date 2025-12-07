@@ -35,12 +35,17 @@ export function setCommentList(comments) {
         return;
       }
 
-      alert('삭제되었습니다.');
+      //alert('삭제되었습니다.');
       window.location.reload();
 
     } catch (error) {
       console.error(error);
-      alert('에러가 발생했습니다.');
+      await Swal.fire({
+        icon: 'error',
+        title: '다시 시도해주세요!',
+        showConfirmButton: false,
+        timer: 1200
+      });
     } finally {
       modal.classList.remove('show');
       targetComment = null;
@@ -123,12 +128,16 @@ export function setCommentList(comments) {
               return;
             }
 
-            alert('댓글이 수정되었습니다.');
+            //alert('댓글이 수정되었습니다.');
             window.location.reload();
 
           } catch (error) {
-            console.error(error);
-            alert('에러가 발생했습니다.');
+              await Swal.fire({
+                icon: 'error',
+                title: '다시 시도해주세요!',
+                showConfirmButton: false,
+                timer: 1200
+              });
           }
         });
 
