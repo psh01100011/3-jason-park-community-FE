@@ -213,26 +213,44 @@ document.addEventListener('DOMContentLoaded', async () =>{
     if (confirmBtn) {
         confirmBtn.addEventListener('click', async(e) => {
             e.preventDefault();
-            try {
-                const url = `${address}/api/v1/users/me/status`;
-                const option = {
-                    method: 'PATCH',
-                    credentials: 'include' 
-                };
-                const response = await fetchRequest(url,option);
 
-                if (response.status !== 204) {
-                    throw new Error('수정 요청 실패');
-                }
-                alert('탈퇴되었습니다.');
-                sessionStorage.removeItem("userId");
-                window.location.href = '/';
+            Swal.fire({
+                title: '탈퇴하는 중...',
+                didOpen: async () => {
+                    Swal.showLoading();
+
+                    try {
 
 
-            } catch(err){
-                console.error('탈퇴 중 오류 발생:', err);
-                alert('탈퇴에 실패했습니다. 다시 시도해주세요.');
-            }
+                        const url = `${address}/api/v1/users/me/status`;
+                        const option = {
+                            method: 'PATCH',
+                            credentials: 'include' 
+                        };
+                        const response = await fetchRequest(url,option);
+
+                        if (response.status !== 204) {
+                            throw new Error('수정 요청 실패');
+                        }
+                        Swal.fire({
+                            icon: 'success',
+                            title: '탈퇴되었습니다.',
+                            timer: 1200,
+                            showConfirmButton: false
+                        }).then(() => {
+                            sessionStorage.removeItem("userId");
+                            window.location.href = '/';
+                        });
+
+                    } catch (e) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: '다시 시도해주세요.',
+                        });
+                    }
+    
+                }   
+            });
 
 
         });
